@@ -1,0 +1,120 @@
+\usepackage[sfdefault]{carlito} % Use Carlito, similar to Calibri
+\usepackage[headheight=45pt]{geometry}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{titlesec}
+\usepackage[colorlinks,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage{authblk}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{braket}
+\usepackage{physics}
+\usepackage[version=3]{mhchem}  % for \ce
+\usepackage{xurl}
+
+% Footnotes displayed as a,b,c ...
+\renewcommand{\thefootnote}{\alph{footnote}}
+
+% NEUE PACKAGES ZUM TESTEN
+\usepackage{float}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% used in 7.3 Molecular Transport:
+%\usepackage{seqsplit}
+
+% used in 4.1 Coupled-Cluster: 
+%\usepackage{subcaption}
+%\usepackage[export]{adjustbox}
+%\usepackage{subcaption}
+%\usepackage{tikz} 
+%\usetikzlibrary{matrix}
+%\usepackage{subfig}
+
+%\usepackage{draftwatermark}
+%\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{1}
+
+%\usepackage{comment}
+
+
+% used in 4.3 GW Periodic
+%\usepackage{physics}
+%\usepackage[version=3]{mhchem}  % for \ce
+
+% used in 4.6 Delta-SCF:
+%\usepackage[normalem]{ulem}
+%\usepackage[numbers,sort&compress]{natbib}
+%\usepackage{multirow}
+%\usepackage{pifont}
+
+% used in 4.5 RT-TDDFT:
+%\usepackage{smartdiagram}
+
+% used in 6.1 FHI-Vibes, 5.3 Polarisation, 6.5 Band-Unfolding, 7.1 Heat Transport und 7.2 Electrical Transport: 
+%\usepackage{amssymb,bbm,braket,xspace}
+
+% used in 8.2 Worksflows
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% used in 6.5 Band-Unfolding:
+%%% Added by CC:
+% Packages
+%\usepackage[utf8]{inputenc}
+
+% used in 3.1 Exchange and Correlations
+% Add bibliography management
+% \usepackage[backend=biber,style=phys,sorting=none]{biblatex}
+% \addbibresource{bibliography.bib}
+
+% Used in 7.3 Molecular transport
+%\usepackage{dsfont}
+\usepackage[capitalise]{cleveref}
+
+
+% \geometry{a4paper, margin=1in}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}  % Adjust the space to your liking
+
+% Initialize the author list
+% Command to add an author and their affiliation
+\newcommand{\sectionauthor}[2][1]{{\it #2$^\text{#1}$,}}
+% /\newcommand{\sectionsecondlastauthor}[2][1]{{\it #2$^\text{#1}$}}
+\newcommand{\sectionlastauthor}[2][1]{{and \it #2$^\text{#1}$}}
+\newcommand{\sectionaffil}[2][1]{$^\text{#1}$#2\newline}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{20\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        %\huge\bfseries \@chapapp\space \thechapter
+        \huge\bfseries \thechapter\space\space%
+        %\par\nobreak
+        %\vskip 20\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \huge \bfseries #1\par\nobreak
+    \vskip 20\p@
+  }}
+\makeatother
+
+\singlespacing
+
+%used in 2.4 Solvers (ELPA/ELSI)
+%\usepackage{tabularx,booktabs} % for table
+%\usepackage[utf8]{inputenc}
+%\usepackage{amssymb}
+%\usepackage{cite}
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcommand{\rr}[1]{\textcolor{red}{#1}}
+\newcommand{\gi}[1]{\textbf{\textit{\textcolor{gray}{#1}}}}

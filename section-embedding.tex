@@ -1,0 +1,229 @@
+% % Template sectionsectionauthor: Mariana Rossi (2024) little chages Scheffler
+% \documentclass[11pt]{article}
+% \usepackage[sfdefault]{carlito} % Use Carlito, similar to Calibri
+% \usepackage{geometry}
+% \usepackage{setspace}
+% \usepackage{titlesec}
+% \usepackage{hyperref}
+% \usepackage{graphicx}
+% \usepackage{amsmath}
+% \usepackage{bm}
+% \usepackage{wrapfig}
+% \usepackage{xcolor}
+% \usepackage{authblk}
+% \usepackage[font=small,labelfont=bf]{caption}
+
+% added by Andrew Logsdail
+% \usepackage[capitalise]{cleveref}
+% \usepackage[font=small,labelfont=bf]{caption}
+
+% \definecolor{YYblue}{RGB}{0, 96, 255}
+% \newcommand{\yy}[1]{{\color{YYblue}{#1}}}
+
+
+% Add bibliography management
+% \usepackage[backend=biber,style=phys,sorting=none]{biblatex}
+% \addbibresource{bibliography.bib}
+
+
+% % Set up the page dimensions
+% \geometry{a4paper, margin=1in}
+
+% % Customizing titles and section headers
+% % Customizing titles and section headers
+% \titleformat{\section}{\normalfont\fontsize{11}{13}\bfseries\sffamily}{\thesection}{1em}{}
+% \titleformat{\subsection}{\normalfont\fontsize{11}{13}\bfseries\sffamily}{\thesubsection}{1em}{}
+% \titleformat{\title}{\normalfont\fontsize{14}{16}\bfseries\sffamily}{}{0em}{}
+
+% % Paragraph formatting: no indentation and slightly larger space between paragraphs
+% \setlength{\parindent}{0pt}
+% \setlength{\parskip}{0.5em}  % Adjust the space to your liking
+
+ % ANNA: Beginn auf neuer Seite
+\newpage
+
+% % Document metadata
+\section{Explicit and Implicit Embedding Approaches}
+% Below is the full list of approached sectionsectionauthors. Names are given in surname alphabetical order. 
+% Note names/sectionaffiliations aren't complete as:
+%  - those who have not responded are commented out with %noresponse%
+%  - those who have delined to be listed as sectionsectionauthors are commented out with %declined%, and in acknowledgements
+\sectionauthor[1]{Daniel Berger}
+\sectionauthor[2,3]{Volker Blum} %email: volker.blum@duke.edu
+\sectionauthor[4]{Gabriel A. Bramley} %email: BramleyG@cardiff.ac.uk
+\sectionauthor[4]{Matthew R. Farrow} %email: matthew.r.farrow@gmail.com
+\sectionauthor[5]{Jakob Filser} %email: jakobfilser@boisestate.edu
+\sectionauthor[5]{Matthias Kick} %email: kick@fhi.mpg.de
+\sectionauthor[6]{\textbf{ *Andrew J. Logsdail}} %email: LogsdailA@cardiff.ac.uk
+\sectionauthor[7]{Harald Oberhofer} %email: harald.oberhofer@uni-bayreuth.de
+\sectionauthor[5]{Karsten Reuter} %email: reuter@fhi-berlin.mpg.de
+\sectionauthor[8]{Stefan Ringe} %email: sringe@korea.ac.kr
+%declined% \sectionauthor[3]{Christoph Scheurer} %email: scheurer@fhi.mpg.de
+\sectionauthor[6]{Pavel V. Stishenko} %email:StishenkoP@cardiff.ac.uk
+\sectionauthor[6]{Oscar van Vuren} %email: VanVurenO@cardiff.ac.uk
+\sectionauthor[9]{Daniel Waldschmidt} %email: daniel.waldschmidt@cup.uni-muenchen.de
+\sectionlastauthor[2,a]{Yi Yao} %email: yao@fhi-berlin.mpg.de
+
+
+% sectionaffiliations are commented out if no response; deleted if declined sectionauthorship
+% Ignore number ordering, this can be resolved at the end! For now just want them accurate
+\sectionaffil[1]{Chair for Theoretical Chemistry and Catalysis Research Center, Technische Universit\"at M\"unchen, Lichtenbergstr. 4, D-85747 Garching, Germany}
+\sectionaffil[2]{Thomas Lord Department of Mechanical Engineering and Materials Science, Duke University, Durham, NC 27708, USA}
+\sectionaffil[3]{Department of Chemistry, Duke University, Durham, NC 27708, USA
+}
+\sectionaffil[4]{Department of Chemistry, Kathleen Lonsdale Materials Chemistry, University College London, London, United Kingdom}
+\sectionaffil[5]{Theory Department, Fritz Haber Institute of the Max Planck Society, Faradayweg 4-6, D-14195 Berlin, Germany}
+\sectionaffil[6]{Cardiff Catalysis Institute, School of Chemistry, Cardiff University, Park Place, Cardiff CF10 3AT, United Kingdom}
+\sectionaffil[7]{Department of Physics and Bavarian Center for Battery Technologies, University of Bayreuth, Bayreuth, Germany}
+\sectionaffil[8]{Department of Chemistry, Korea University, Seoul 02841, Republic of Korea}
+\sectionaffil[9]{Technische Universität München (TUM), Munich, Germany}
+
+\sectionaffil[*]{Coordinator of this contribution.}
+\rule[0.25ex]{0.35\linewidth}{0.25pt}
+
+\sectionaffil[a]{{\it Current Address:} Molecular Simulations from First Principles e.V., D-14195 Berlin, Germany}
+
+
+
+% \sectionaffil[a]{LogsdailA@cardiff.ac.uk}
+
+
+% \date{}
+
+% % Single line spacing
+% \singlespacing
+
+% \begin{document}
+
+% \maketitle
+
+\subsection*{Summary}
+% Contributions to capture:
+% KR: Work from JF, MK and HR
+% HR: There's currently two working embedding techniques: The old Chemshell one (actually similar things can be achieved with Python, potentially with more effort though) and Jakob/Pavels MPE. Matthias Kick could probably write something on the chemshell parts and Jakob for MPE. We should also include SR for MPB, noting concerns with eigenvalues and forces.
+% JF: We should probably write a few words on MPE-nc in general, and then go into more detail about the more recent developments, i.e. Pavel's work and the force implementation. I'm currently writing up the MPE forces paper and doing some final benchmarks. The paper will also include some updates to the method in general. Some details won't be entirely clear until it is finished. So I can't really write up anything in great detail at the moment. All I can say is:
+% - derivatives of electrostatic and non-electrostatic terms are included
+% - unfortunately, tighter convergence parameters and expansion orders are necessary
+% - there is some residual error between forces and numeric derivates of the energy. For the cases I've tested so far, this was below or around 10 meV/A. Forces are continuous and minima don't seem to be shifted significantly, so geometry relaxation and similar applications will likely be possible.
+% - Scaling isn't perfectly linear (neither with CPUs nor with atoms), but the force computation step is extremely fast and practically never the bottleneck. The aforementioned tighter convergence requirements already during the SCF loop turn out to have a much higher impact on performance in the cases I tested. I'm optimistic that the combination with Pavel's work will improve performance significantly.
+% In terms of developments in the next 2-3 years, if the combination of the force implementation with Pavel's work turns out to be easy, then this is something we should work on, but I will probably not be working on any entirely new features.
+
+Applied electronic structure calculations often benefit from a reductionist approach to representing the system of interest, as this lowers the number of electrons in the model and helps to make calculations tractable. However, models of real chemical systems can become inaccurate with such an approach, and this motivates efforts towards hierarchical representations where the all-electron site or species of interest is embedded within a coarser representation of the environment. Such multiscale embedding approaches typically ensure that the highest accuracy is maintained on the sites or species of interest, whilst the environment response is sufficiently captured and its energy contributions are included. The most common field of application for multiscale embedding is biological chemistry \cite{warshel1976, senn2009}, though there is demonstrable value for translation to homogeneous and heterogeneous fields where long-range interactions can play a crucial role \cite{ringe2022, csizi2023, bramley2023}.
+
+Embedding approaches apply either an explicit or implicit effective representation of the environment, as schematically shown in Fig.~\ref{fig:schematic_of_implicit_and_explicit_embedding}. In \textbf{explicit embedding}, basis centres (typically atomic sites) in the embedding environment can be coarsened, by removing electronic degrees of freedom and instead centering an effective embedding potential at the same point in the form of a monopole, dipole, or higher order multipoles. Alternatively, hierarchical basis representations and/or approximate treatment of core electrons (such as freezing or pseudoising of electrons) can be applied in the embedding environment, providing greater subtlety in the form of the applied embedding potential \cite{berger2014, yu2021}. The latter approaches are particularly important where directed bonding interactions influence the active site. In contrast, \textbf{implicit embedding} considers the holistic dielectric response to/from an encapsulating medium for the active site or species. Often, the embedding medium is considered to be liquid, and response to any stimulus is represented in the all-electron calculation; directional bonding is therefore not considered, but rather the correct energetics of the system in its surroundings are approximated \cite{ringe2022}.
+
+
+\subsection*{Current Status of the Implementation}
+FHI-aims has infrastructure that supports both implicit and explicit embedding approaches, including connectivity to external packages that can act as drivers for calculation workflows \cite{lu2018}. The FHI-aims functionality allows for the energy 
+and forces 
+of a system to be calculated self-consistently under the influence of an 
+%external 
+embedding environment.
+
+%
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures-embedding/schematic.png}
+    \caption{Schematic representations of: a) \textbf{Implicit embedding} environment; and b) \textbf{Explicit embedding} environment. The fully visible species represent quantum mechanical atoms of interest, with blue and orange spheres representing cation and anion species, respectively. For implicit embedding, the blue medium represents the surrounding environment with a dielectric, $\epsilon$; in the explicit embedding model, the partially transparent species represent pseudoised near-neighbours, and white spheres represent the long-range embedding environment that may be included as, \textit{e.g.}, multipolar charges.}
+    \label{fig:schematic_of_implicit_and_explicit_embedding}
+\end{figure}
+%
+
+\textbf{Explicit embedding} is built on the all-electron approach used in a standard FHI-aims calculation, with the effective embedding potential from the surrounding environment captured through surrogate models centred at atomic sites. The embedding environments can take a coarse multipolar form, which is trivially included in the one-electron contributions to the Fock matrix in a manner similar to nuclei; however, this representation typically lacks the subtlety of the density distribution on a real atomic species, and therefore pseudopotential-type embedding is also available. The pseudopotential implementation in FHI-aims takes a Kleinman-Bylander form \cite{berger2014}, which is separable into local and non-local components with additional terms for the non-linear core correction. The pseudopotentials can be particularly valuable for simulations of solid materials with ionic bonding \cite{richter2013, stecher2016, Kick2019}. For effective management of explicit embedding simulations, coupling of FHI-aims with external packages that are designed for multiscale simulations, such as QM/MM with ChemShell \cite{lu2018, lu2023multiscale}, is valuable for clear partitioning of the subsystems that require all-electron representation, pseudopotential centres (when close to the active site of interest), and/or multipolar charges (when at further distance). The infrastructure in FHI-aims is currently suitable for molecular calculations of energies, forces, and other observables.
+
+%Should we include PCM in this section? Need to ask Volker.
+%%HO in my understanding MPE is a form of PCM, do you mean the COSMO implementation that someone is rumored to be working on?
+% Attempting to combine Stefan/Jakob's changes, unfortunatley on difference versions! Keeping Jakob's version here.
+%\textbf{Implicit embedding} takes a contrasting holistic approach to representing the surrounding solvent environment of a solute, \textit{via} representation of the solvent as an effective embedding medium. In general, the integration of the solvent's degrees of freedom leads to a generalised Poisson's equation:
+\textbf{Implicit embedding} takes a contrasting holistic approach by representing the surrounding solvent environment as an effective embedding medium. From a classical electrostatic perspective, the integration of the environment's degrees of freedom is achieved by modifying the Poisson equation to the generalised form:
+%%HO this is actually mostly a description of MPE, right? in MPB rho is modified by ion densities and the whole equation becomes non-linear
+\begin{equation}\label{eq:GPE}
+    \nabla [\epsilon_0 \epsilon(\textbf{r}) \nabla \Phi(\textbf{r})] = - 4 \pi \left(n(\textbf{r}) +n_{\rm ion}[n(\textbf{r})]\right)\quad. 
+\end{equation}
+
+The solution of \cref{eq:GPE} provides the electrostatic potential, $\Phi (\textbf{r})$, given the all-electron density representation of the solute, $n (\textbf{r})$, the possible charge density of solvent ions, $n_{\rm ion}$, and the dielectric response of the solvent, $\epsilon (\textbf{r})$, which is commonly functionalised based on the electron density tail of the solute \cite{ringe2022}.
+% Alternative from Gabriel:
+% functionalised as an isocontour of the electron density(?)
+
+%The linear equations are solved at user-specified density isosurfaces, and the complexity of the interface between the solvent and solute determines the nature and cost of the implict embedding model applied. 
+
+FHI-aims offers three implicit embedding approaches based on the generalised Poisson equation. The first approach is the \textit{multipole-expansion} (MPE)\cite{filser2021} method, where the dielectric function is represented by a sharp step function of the electron density, leading to a discrete interface between the environment and the embedded system.
+%at a specified electron density.
+The sharp interface in MPE reduces \cref{eq:GPE} to a
+%2-dimensional 
+problem that can be cast into an overdetermined system of linear equations (SLE), and 
+%thus the computational bottleneck of finding 
+the least squares solution can be solved efficiently using standard algorithms. 
+The electrostatic potential in MPE is represented in a finite basis-set expansion, and computational efficiencies can be obtained by separating the regions in the solute 'cavity' space into atom-centered sub-regions to create multiple sub-cavities (MPE-$n$c), limiting the number of basis functions inside each sub-cavity to a size-independent finite number. The outcome is greatly reduced cost when preparing the SLE, as well as opportunity to apply a sparse solver algorithm.
+%% Alternative from Pavel
+% The electrostatic potential in MPE is expanded in basis functions localised within atom-centered convex subregions of solute or solvent. The conditions of potential continuity on subregion boundaries are incorporated in the SLE.  Such representation gives sparse SLE matrix and allows usage of sparse solvers with good scalability.
+
+The second implicit embedding approach is the \textit{Stern layer modified Poisson-Boltzmann} (MPB) method, where a smooth dielectric permittivity function of the electron density is applied, which then requires \cref{eq:GPE} to be solved over the whole computational domain. MPB allows for higher flexibility in the model, and also allows the introduction of arbitrary forms for the ionic charge density in the solvent, $n_{\rm ion}$, parameterised as a function of the electron density. The increased complexity of the interface leads inherently to 
+% greater
+higher computational cost, with MPE requiring negligible computation time compared to MPB. 
+
+The third implicit embedding approach is the conductor-like screening model (COSMO).\cite{klamt1993cosmo}. Instead of solving the Poisson equation with a modified $\epsilon (\textbf{r})$, COSMO uses $\epsilon = \infty$ in the medium, independent of its dielectric constant. This changes the boundary condition of the Poisson equation, turning it into a relatively easy to solve boundary value problem of electric field inside a conductor. To account for the effect of a finite dielectric constant, an empirical scaling function is used to adjust the surface charge, given by:
+\begin{equation}\label{eq:COSMO_scaling}
+f(\epsilon)=\frac{\epsilon-1}{\epsilon+k},
+\end{equation}
+where $k$ is an empirical parameter, typically set to 0.5 or 0. We implemented the smooth version of COSMO by York and Karplus\cite{york1999smooth}, which eliminates discontinuities with respect to the atomic positions present in the original COSMO formulation.
+
+
+\subsection*{Usability and Tutorials}
+\textbf{Explicit embedding} approaches using multipolar charges and pseudoised atoms are realised \textit{via} inclusion in the model geometry file (\texttt{geometry.in}) using the definitions \texttt{multipole} or \texttt{pseudocore}, respectively. For the \texttt{pseudocode} species, a standard species definition is also required with the calculation settings, including integration grids and a minimal basis, and with specific direction to a suitable \texttt{.cpi} format file containing the pseudopotential details \cite{fuchs1999, opium2024}. If the pseudopotentials are being used as a replacement for an all-electron species, the basis functions must be removed for subsequent applied calculations and a representative charge must be set appropriately, as detailed in the software manual. 
+%Additional beneficial functionality includes complete implementation of the the non-linear core correction, which arises due the non-additive nature of density functionals \cite{berger2014}. 
+%Note: Gabriel Bramley completed this implementation in 2023.
+FHI-aims also supports the non-linear core correction, which remedies the non-phyiscal linearisation of the exchange-correlation density functional \cite{berger2014}.
+Multipole species are simpler to define, requiring definition of location, order, and charge in the system geometry, with no contribution in the \texttt{control.in} file. Forces are available \textit{via} the Hellmann-Feynman formalism, with the \texttt{qmmm} keyword necessary in the \texttt{control.in} file for forces on multipoles. For all-electron species, spurious Coulomb singularities have been observed when multipoles spatially overlap with an integration grid point (\textit{i.e.}, around real atoms); these singularities can be avoided by ensuring reasonable distance separation ($>5~\textrm{\AA}$) between real and embedding species. A full tutorial showcasing how explict embedding calculations are performed with FHI-aims and ChemShell is given in the software tutorials \cite{qmmm2024}.
+
+% These need expanding slightly.
+\textbf{Implicit embedding} is available \textit{via} a range of input keywords that manage the implementation choice of MPE or MPB, and respective subsettings. The \texttt{solvent} keyword selects between the MPE or MPB models. The options available for MPE include single cavity, piece-wise cavity (MPE-$n$c), and piece-wise solvent representation (MPE-$n$cps), with the latter supporting both molecular and periodic system representations \cite{filser2021,stishenko2024}.
+% JF: I think this better fits in the next section.
+%; forces are in active development.
+% JF: Is the next sentence also true for MPE-ncps?
+For MPE-$n$c and MPE-$n$cps, default settings are optimised for water as a solvent, but physical model parameters can also be set by the user. These parameters include the solvent dielectric constant, $\epsilon$; the choice of the isosurface that defines the interface between the solvent and solute; and whether non-electrostatic contributions (such as surface tension) are required in the total energy.
+
+For the MPB approach, energies and analytical forces are supported for non-periodic systems \cite{ringe2017phd}. After the appropriate choice for \texttt{solvent} in the calculation input, the dielectric function must be specified. At the current stage, only the dielectric function from the self-consistent continuum solvation (SCCS) method\cite{andreussi2012} has been extensively tested with the MPB package. The SCCS dielectric function has been popular in the community, and parameters for ionic\cite{dupont2013} and neutral molecular solutes in aqueous\cite{andreussi2012}, and non-aqueous\cite{hille2019} solutions (with generalization to any non-aqueous solvent), have been proposed. Implicit embedding methods rely critically on parameterizations, and therefore careful review of these references is encouraged for users. A notable additional feature of the MPB implementation is the possibility for modelling additional continuum charge distributions in the embedded region, which could for example represent salts in electrolytes. This is commonly achieved by modelling the ions as an ideal gas (Poisson-Boltzmann equation) with possibility for additional repulsion between the ions, to account for hydrated ion-ion interactions, and the ion-solute interactions that form a Stern layer \cite{ringe2022,ringe2017phd,ringe2016}. Parameterisations for various dissolved salts are available and have been well-tested for molecular solutes \cite{ringe2017}. Full details of all settings are available in the FHI-aims manual.
+
+For the COSMO approach, both energies and analytical forces are supported for non-periodic systems. To enable a COSMO calculation, one must add the command \texttt{solvent cosmo} into the \texttt{control.in} file. Two additional inputs are required: the dielectric constant of the medium, specified with \texttt{cosmo\_epsilon $<$value$>$}, and a file that represents the grid points on the dielectric surface. Full details on the format of the grid points file can be found in the FHI-aims manual.
+
+
+\subsection*{Future Plans and Challenges}
+The development and deployment of embedding approaches remains an active domain, with increasing need to understand chemical systems at large scale. Explicit atomistic and electronic embedding can therefore benefit from additional options for defining the environment, \textit{via} either density \cite{huang2011} or wavefunction-based embedding \cite{lee2019}, and these are fields of active on-going research. These developments will allow better representation of short-range interatomic interactions, and the coarser point charge and pseudopotential representations can be deployed at a greater distance from the active centre. Care will be required to manage the calculation model and coupling of energy landscapes accurately and coherently, and work is on-going in this domain within FHI-aims and complementary software packages, such as ChemShell. Furthermore, accessibility is as desirable as functionality, with a need for simpler workflows and transferability of approaches across the physical, chemical, biological, and material domains. Complementary to these aspects is the opportunity to integrate machine-learning representations of surrogate landscapes, as discussed elsewhere in this Roadmap. 
+
+Implicit environment embedding is equally important in future workflows, and will benefit from the forthcoming implementation of forces for the MPE model. These forces are in active development for molecular models but further ambitions exist for this functionality in periodic modelling approaches. 
+The MPB model is complementary and offers further a high degree of flexibility for future implementations of advanced solvation techniques, such as non-linear or non-local dielectric response \cite{ringe2022}, and similar goals exist for extension to periodic modelling. 
+An additional interface with the Environ package is also under development to provide further diversity of options for implicit embedding \cite{andreussi2012}.
+The combined outcome will be access to models for solid/liquid interfaces relevant to the most timely challenges in environmentally-relevant chemistry, such as renewable energy and green catalysis.
+% JF: I rewrote the following sentence to be a bit more specific, here is the original version:
+%Work continues here to improve the scalability of these implicit embedding approaches, by seeking and implementing efficiently scaling sparse solvers such that hierarchical models are not a bottleneck when deployed \cite{stishenko2024}.
+
+Work also continues overall to improve the scalability of the implicit embedding approaches, by systematically constructing basis sets of limited size for piecewise solvent sub-regions, and seeking and implementing efficiently scaling sparse solvers such that hierarchical models are not a bottleneck when deployed \cite{stishenko2024}. 
+Aspirations to couple implicit and explicit embedding approaches exist, but further development of the underlying framework is required before any attempts to realise this complete embedding model.
+
+
+
+\subsection*{Acknowledgements}
+We acknowledge fruitful discussions with Oliviero Andreussi, Reinhard J. Maurer, Christoph Scheurer, Alexey Sokol and Scott Woodley. %alphabetical order. Is (and others) superfluous? Consider removing.
+AJL, PVS, and GAB acknowledge funding by the UKRI Future Leaders Fellowship program (MR/T018372/1, MR/Y034279/1). 
+OvV acknowledges funding of a PhD scholarship by Cardiff University.
+AJL, JF, HO, GAB, and PVS acknowledge funding from the ARCHER2 eCSE Programme (eCSE08-13).
+HO acknowledges support from the German Science Foundation (DFG) under grant number OB 425/9-1.
+SR additionally acknowledges financial support from the National Research Foundation of Korea (NRF), funded by the Ministry of Science and ICT (grant no. 2021R1C1C1008776).
+
+% Explicit bibliography to make it easier to format in the future
+%\begin{thebibliography}{bi}
+%
+%\bibitem{baro+rmp2001}
+%S. Baroni, S. de Gironcoli, A. D. Corso, P. Giannozzi, \textit{Phonons and related crystal properties from density-functional perturbation theory}. Rev. Mod. Phys. \textbf{73}, 515–562 (2001)
+%
+%\bibitem{gian+prb1991}
+%P. Giannozzi, S. de Gironcoli, P. Pavone, S. Baroni, \textit{Ab initio calculation of phonon dispersions in semiconductors}. Phys. Rev. B \textbf{43}, 7231-7242 (1991)
+%  
+%\end{thebibliography}
+
+% \printbibliography
+
+
+
+% \end{document}
